@@ -274,11 +274,8 @@ window.VORTEX = {
       authors: "Fares Elsabbagh, Bahar Asgari, Hyesoon Kim, Sudhakar Yalamanchili",
       venue: "CARRV", year: 2019,
       link: "https://carrv.github.io/2019/papers/carrv2019_paper_10.pdf",
-      abstract: "One of the domains of processor design that can take advantage of RISC-V, but has not seen enough attention, is general-purpose GPU (GPGPU) design. To support the development of an open-source GPGPU system, we present Vortex, our solution for building single instruction, multiple thread (SIMT) execution using RISC-V. In addition to a synthesizable microarchitecture model, we propose a GPU ISA extension to RISC-V and a software model, in the form of a runtime kernel, which makes Vortex practical and easy to integrate." }
-  ],
+      abstract: "One of the domains of processor design that can take advantage of RISC-V, but has not seen enough attention, is general-purpose GPU (GPGPU) design. To support the development of an open-source GPGPU system, we present Vortex, our solution for building single instruction, multiple thread (SIMT) execution using RISC-V. In addition to a synthesizable microarchitecture model, we propose a GPU ISA extension to RISC-V and a software model, in the form of a runtime kernel, which makes Vortex practical and easy to integrate." },
 
-  /* ---------- related group publications (not in survey Table 1) ---------- */
-  legacyPublications: [
     { title: "CuPBoP: CUDA for Parallelized and Broad-range Processors",
       authors: "Ruobing Han, Jun Chen, Bhanu Garg, Jeffrey Young, Jaewoong Sim, Hyesoon Kim",
       venue: "arXiv", year: 2022, link: "https://arxiv.org/abs/2206.07896",
@@ -315,6 +312,7 @@ window.VORTEX = {
       authors: "Fares Elsabbagh, Blaise Tine, Apurve Chawda, Will Gulian, Yaotian Feng, Da Eun Shim, Priyadarshini Roshan, Ethan Lyons, Lingjun Zhu, Sung Kyu Lim, Hyesoon Kim",
       venue: "Hot Chips 32", year: 2020, link: "https://vortex.cc.gatech.edu/publications/hotchips-poster.pdf",
       abstract: "We present Vortex, a full-stack RISC-V GPGPU processor with OpenCL support. The Vortex platform is highly customizable and scalable with a complete open-source compiler, driver, and runtime software stack to enable research in GPU architectures. We evaluated this design using 15nm technology." }
+  
   ],
 
   /* ---------- news ---------- */

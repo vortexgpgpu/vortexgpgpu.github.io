@@ -143,6 +143,7 @@ section.pull-up{padding-top:52px}
 .sec-head h2{font-size:1.85rem;font-weight:800;letter-spacing:-.02em}
 .sec-head a{font-size:.88rem;color:var(--brand);font-weight:700}
 .sec-head a:hover{text-decoration:underline}
+.sec-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .sub{font-size:1.35rem;font-weight:800;margin:0 0 20px;letter-spacing:-.01em}
 
 /* page header ----------------------------------------------------------- */

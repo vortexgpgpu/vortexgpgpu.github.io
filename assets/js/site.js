@@ -35,7 +35,7 @@
           '</a>' +
           '<div class="links">' + navLinks + '</div>' +
           '<div class="nav-right">' +
-            '<a class="src" href="' + V.site.github + '" target="_blank" rel="noopener">View Source</a>' +
+            '<a class="src" href="' + V.site.github + '" target="_blank" rel="noopener">View on GitHub</a>' +
             '<button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">☰</button>' +
           '</div>' +
         '</nav></div>' +
@@ -43,7 +43,7 @@
           V.nav.map(function (n) {
             return '<a href="' + n.href + '"' + (n.key === page ? ' class="active"' : '') + '>' + esc(n.label) + '</a>';
           }).join('') +
-          '<a href="' + V.site.github + '" target="_blank" rel="noopener">View Source ↗</a>' +
+          '<a href="' + V.site.github + '" target="_blank" rel="noopener">View on GitHub ↗</a>' +
         '</div>' +
       '</header>';
 
@@ -196,6 +196,13 @@
       '</article>';
   }
 
+  /* Publications are always displayed newest-first, so entries can be appended
+     to the array in any order. Array.prototype.sort is stable, so the relative
+     order inside a year is whatever data.js lists. */
+  function pubsSorted() {
+    return V.publications.slice().sort(function (a, b) { return b.year - a.year; });
+  }
+
   function personCard(p) {
     var name = p.site
       ? '<a class="person-link" href="' + p.site + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>'
@@ -242,8 +249,8 @@
     if (el('pubs')) {
       // Publications flagged `selected: true` in data.js, shown oldest-first so
       // the list reads as a progression: core ISA → graphics → compiler → tensor cores.
-      var sel = V.publications.filter(function (p) { return p.selected; }).reverse();
-      if (!sel.length) sel = V.publications.slice(0, 4);
+      var sel = pubsSorted().filter(function (p) { return p.selected; }).reverse();
+      if (!sel.length) sel = pubsSorted().slice(0, 4);
       el('pubs').innerHTML = sel.map(function (p) { return pubCard(p, { noAbstract: true }); }).join('');
     }
     if (el('home-news')) el('home-news').innerHTML = newsSorted().slice(0, 4).map(newsItem).join('');
@@ -266,14 +273,11 @@
           '</div>';
       }).join('');
     }
-    var legacyHost = el('pubs-legacy');
-    if (legacyHost && V.legacyPublications) {
-      legacyHost.innerHTML = V.legacyPublications.map(function (p) { return pubCard(p); }).join('');
-    }
+    var all = pubsSorted();
     var host = el('pubs');
     if (host) {
-      host.innerHTML = V.publications.map(function (p) { return pubCard(p); }).join('');
-      var years = V.publications.map(function (p) { return p.year; })
+      host.innerHTML = all.map(function (p) { return pubCard(p); }).join('');
+      var years = all.map(function (p) { return p.year; })
         .filter(function (y, i, a) { return a.indexOf(y) === i; })
         .sort(function (a, b) { return b - a; });
       var fh = el('filters');
