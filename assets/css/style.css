@@ -6,18 +6,20 @@
    ========================================================================== */
 
 :root{
-  /* Palette derived from the Vortex logo — Georgia Tech Navy + Tech Gold. */
-  --bg:#f5f6f8;
+  /* Palette derived from the Vortex logo — Georgia Tech Navy + Tech Gold.
+     The page surface is a light navy tint rather than neutral grey, so white
+     cards read as raised against it. */
+  --bg:#eff4fa;
   --card:#ffffff;
   --ink:#0b2038;
   --ink-2:#3a4a5c;
-  --muted:#6b7a8c;
-  --line:#e3e7ec;
+  --muted:#66788c;
+  --line:#dbe4ef;
 
   --brand:#003057;        /* navy — primary */
   --brand-2:#0a5183;      /* lighter navy — gradient partner */
   --brand-ink:#00223e;    /* deepest navy — text on tints */
-  --brand-soft:#e7edf3;   /* navy tint surface */
+  --brand-soft:#dfe9f5;   /* navy tint surface */
 
   --gold:#b3a369;         /* Tech Gold — accent */
   --gold-2:#c8ba86;
@@ -61,7 +63,7 @@ img{max-width:100%;display:block}
 /* header / nav ---------------------------------------------------------- */
 header{
   position:sticky;top:0;z-index:40;
-  background:rgba(245,246,248,.88);backdrop-filter:blur(12px);
+  background:rgba(239,244,250,.88);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
 }
 header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--brand) 0 62%,var(--gold) 62% 100%)}
@@ -106,6 +108,13 @@ nav{display:flex;align-items:center;justify-content:space-between;height:74px;ga
 .btn-gh svg{flex-shrink:0}
 
 /* hero ------------------------------------------------------------------ */
+/* A very faint navy/gold wash behind the hero, fading into the page tint. */
+body::before{
+  content:"";position:fixed;inset:0 0 auto 0;height:620px;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(900px 420px at 12% -8%, rgba(0,48,87,.10), transparent 65%),
+    radial-gradient(700px 360px at 88% -14%, rgba(179,163,105,.13), transparent 62%);
+}
 .hero{padding:88px 0 64px}
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
 .hero h1{font-size:clamp(2.4rem,5vw,3.75rem);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin-top:18px}
