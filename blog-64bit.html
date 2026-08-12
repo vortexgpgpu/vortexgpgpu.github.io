@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>64-bit Extension for Vortex — Vortex Blog</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#003057">
+<meta name="description" content="Understanding the Vortex codebase and extending the Vortex RTL from 32-bit to 64-bit to support the RISC-V 64-bit ISA.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="blog">
+<div id="site-header"></div>
+
+<main id="main">
+<div class="wrap narrow">
+  <div class="page-head">
+    <a class="backlink" href="blog.html">← All blog posts</a>
+    <h1>Understanding the Vortex codebase and extending the Vortex RTL from 32-bit to 64-bit</h1>
+    <p>Authors: Rohit Mundada, Hitharth Shajwani, Samarth Agarwal — undergraduate students from BITS Pilani</p>
+  </div>
+
+  <div class="article">
+    <div class="article-body">
+
+      <p>This blog talks about the Vortex project and the work that we did during our remote internship under Dr. Hyesoon Kim. We started out by first understanding the architecture design of the Vortex project. For this, there were a set of assignments given to us that helped us in becoming familiar with the codebase. Further, we worked on extending the RTL design to include support for the RISC-V 64-bit ISA, as the current project is only suited for the 32-bit ISA.</p>
+
+      <h2>Understanding the existing codebase</h2>
+      <p>In order to understand the existing codebase, we were given a set of six assignments with increasing levels of complexity. The first two assignments were pretty straightforward, involving adding certain counters to check the performance of the GPU or to check the number of active requests made by all the threads in an active warp to the same memory address.</p>
+
+      <h3>Assignment 1 — counting active threads</h3>
+      <p>In the first assignment, the goal was to find out the number of active threads per cycle during program execution. Through this assignment, we were introduced to interfaces in SystemVerilog and how they are used in a large project. Any interface has two modules within it — a slave module and a master module — and using either of these two, an interface can be used to connect various modules together. We had to add the performance counter at various stages of the architecture. The actual counting of the active threads was done in <code>VX_issue.sv</code>, the issue stage where all the instructions are scheduled.</p>
+      <figure><img src="https://i.imgur.com/tK7th42.png" alt="Implementation for calculating total active threads" loading="lazy"><figcaption>Calculating total active threads</figcaption></figure>
+      <p>In order to print the average number of active threads per cycle, the total count of active threads from the RTL had to be passed to the <code>VX_utils.cpp</code> file. This was done by storing the active threads in a memory location and retrieving the same in the C++ file.</p>
+
+      <h3>Assignment 2 — duplicate memory requests</h3>
+      <p>For the second assignment, we had to calculate the number of times there was a warp that had all the active threads requesting the same memory address. <code>VX_lsu_unit.sv</code> had a signal called <code>req_is_dup</code> which was set high when all the active threads requested the same memory address as thread 0. Using this and checking if the request is valid, the counter value was incremented at every clock cycle.</p>
+      <figure><img src="https://i.imgur.com/5RUeZHE.png" alt="Duplicate request counter implementation" loading="lazy"><figcaption>Counting duplicate memory requests within a warp</figcaption></figure>
+
+      <h3>Assignment 3 — hardware prefetcher</h3>
+      <p>The later assignments were a bit more involved, as the number of files to change increased and testing of the code was explained. In assignment 3, the goal was to add a hardware prefetcher in the memory system for Vortex. The SimX implementation of the same is explained in a <a href="blog-prefetcher.html">previous blog post</a>. The load-store unit in Vortex takes a vector of addresses, each having valid and read status bits for each thread concatenated with the address. The valid bit is set low for inactive threads. The memory address is calculated by adding an offset to the base address. The prefetch address is computed every time a load address is computed; the prefetcher calculates the next line cache address and sends it to the data cache. Prefetch requests are only handled if there are no existing prefetch requests in the pipeline.</p>
+      <figure><img src="https://i.imgur.com/PjL364K.png" alt="Prefetch address computation" loading="lazy"><figcaption>Prefetch address computation in the load-store unit</figcaption></figure>
+
+      <h3>Assignment 4 — debugging</h3>
+      <p>Assignment 4 involved debugging assignment 3 and showed in general how to debug the codebase. In order to run the processor in debug mode, a <code>--debug</code> flag has to be given to the run command, which generates a <code>run.log</code> file containing information about all the instructions executed by the processor and the corresponding trace flags printed by each module. Here, we can see the status of the flags and check if they are properly set after each instruction. Along with the log file, it also generates a VCD file that can be used to visualize all the signal waveforms using suitable waveform viewing applications like GTKWave or ModelSim.</p>
+      <figure><img src="https://i.imgur.com/8SQsLFF.png" alt="GTKWave waveform for prefetch signal" loading="lazy"><figcaption>The prefetch signal viewed in GTKWave</figcaption></figure>
+
+      <h3>Assignment 5 — adding a new instruction</h3>
+      <p>Assignment 5 was very interesting, as we had to add a new instruction to the existing codebase. The aim was to add software prefetch instructions in RTL as well as in the SimX simulator. Software prefetch is an instruction that is currently not supported by the RISC-V ISA, so the corresponding assembly code had to be created first. The opcode for non-RISC-V instructions is <code>7'b1101011</code> (or <code>0x6b</code>) and the identifier 5 is used for this instruction. Correspondingly, in the decode stage of the RTL, a case for identifier 5 had to be added and the prefetch flag had to be set. This tag was used later in <code>VX_instr_demux.sv</code>, which sends the instruction to the LSU unit. In this assignment we were also introduced to testing and adding tests for the new instruction. When the corresponding test is run, the <code>kernel.dump</code> file shows the opcode for the software prefetch instruction.</p>
+
+      <h3>Assignment 6 — prefetcher performance counters</h3>
+      <p>Finally, assignment 6 was the culmination of all the previous assignments, as we had to add code for calculating the performance of the software prefetcher. Using it, we had to find out the number of unique requests to main memory, unused prefetch blocks, and the number of late prefetches. The first part of the assignment was to extend the metadata tag to include information about prefetch requests. This tag bit was then used to calculate the number of unused prefetch blocks. These counter values were displayed to the terminal using <code>vx_utils.cpp</code>, where the value of the counter was taken from the required memory address.</p>
+      <figure><img src="https://i.imgur.com/QliYY6Y.png" alt="Unused prefetch blocks counter" loading="lazy"><figcaption>Counter code for unused prefetch blocks</figcaption></figure>
+      <p>In order to find the number of unique requests to main memory, a very simple logic is used. As we have seen earlier, multiple prefetch requests were generated to the same address, so the first request generated for the prefetch will always be a cache miss. All the subsequent requests will hit, as the corresponding block would be added to the cache. So we just need to find out the number of times a cache miss occurs inside a bank.</p>
+      <figure><img src="https://i.imgur.com/2nIQ8SE.png" alt="Cache miss counting per bank" loading="lazy"><figcaption>Counting cache misses inside a bank</figcaption></figure>
+      <p>Inside <code>VX_cache.sv</code>, all such requests are added together per cycle to generate the total prefetch requests. This information is then used by the C++ file to display the total number of prefetch requests. Similar logic is used to calculate the total number of unused prefetch blocks and the number of late prefetches. Using the same prefetch test created in assignment 5, the codebase was tested.</p>
+      <figure><img src="https://i.imgur.com/wt8qEiI.png" alt="Prefetch-related performance counters" loading="lazy"><figcaption>All prefetch-related performance counters</figcaption></figure>
+      <p>Overall, these assignments are adequate for understanding the flow of instructions through the pipeline and how all modules are connected with each other through interfaces. We strongly recommend everyone first try out all the assignments in order to get a better understanding of the Vortex codebase.</p>
+
+      <hr>
+
+      <h2>Extending Vortex to the RISC-V 64-bit ISA</h2>
+      <p>In order to extend the existing architecture, the first step was to parameterize all the signals in the Vortex codebase so that they can be changed from a single place. Earlier, address widths and data widths were all hard-coded to 32 bits (or <code>[31:0]</code>), which made it a fixed-length architecture. Now all such signals — instruction addresses, data addresses, ALU operands, ALU results, and so on — are parameterized with a variable called <code>ADDR_WIDTH</code>. The value of <code>ADDR_WIDTH</code> can be modified in a single place at <code>hw/rtl/VX_define.vh</code>.</p>
+      <figure><img src="https://i.imgur.com/wcSXeJt.png" alt="Parameterization example 1" loading="lazy"><figcaption>VX_alu_unit.sv</figcaption></figure>
+      <figure><img src="https://i.imgur.com/zcVE0xY.png" alt="Parameterization example 2" loading="lazy"><figcaption>VX_csr_unit.sv</figcaption></figure>
+      <figure><img src="https://i.imgur.com/8extEVl.png" alt="Parameterization example 3" loading="lazy"><figcaption>VX_lsu_unit.sv</figcaption></figure>
+      <figure><img src="https://i.imgur.com/FknwBt8.png" alt="Parameterization example 4" loading="lazy"><figcaption>Additional parameterized modules</figcaption></figure>
+
+      <p>After parameterizing the bus width, the next step is to add opcodes and func values for the 64-bit variants of instructions. This is first added to <code>VX_define.vh</code>, following the conventions in the official RISC-V manual.</p>
+      <figure><img src="https://i.imgur.com/wxkzGfh.png" alt="64-bit opcodes part 1" loading="lazy"><figcaption>64-bit opcode definitions (1/2)</figcaption></figure>
+      <figure><img src="https://i.imgur.com/Fe4d5ez.png" alt="64-bit opcodes part 2" loading="lazy"><figcaption>64-bit opcode definitions (2/2)</figcaption></figure>
+
+      <p>Next, we changed the <code>VX_decode.sv</code> stage so that it can decode 64-bit instructions based on the opcode and func field values from the instruction. Even for 64-bit instructions the opcode and all the values remain the same, as only the lower 32 bits are used, so extending the instruction width from 32 bits to 64 bits was an easy task. Even if the opcodes for the 64-bit variants of instructions like ADD, SUBTRACT, and MULTIPLY are different, the execute units — the ALU, the multiply/divide unit, and so on — are still the same, as they are also parameterized and can support 64-bit operations. So the <code>op_type</code> for these instructions is also the same as their 32-bit variants.</p>
+      <figure><img src="https://i.imgur.com/L1Fm4R3.png" alt="Decode stage handling 64-bit integer instructions" loading="lazy"><figcaption>The decode stage handling 64-bit integer instructions</figcaption></figure>
+
+      <p>As stated earlier, the remaining units in the execute and LSU stages remain the same, as they are already parameterized and can be changed to 64-bit variants as required. Since the 64-bit RISC-V ISA is compatible with all the 32-bit variants, it is easy to extend the same in the Vortex codebase.</p>
+
+      <p>Testing of these modules was done and it was found that all the existing tests in the OpenCL and regression folders were working properly. However, there were certain tests that were giving incorrect results and they are yet to be looked at. Future work involves correctly running the remaining tests in the runtime folder.</p>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

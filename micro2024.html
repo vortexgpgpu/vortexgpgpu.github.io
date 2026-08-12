@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vortex Workshop and Tutorial at MICRO 2024 — Vortex</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#003057">
+<meta name="description" content="The Vortex Workshop and Tutorial at MICRO 2024 — schedule, organizers, workshop presentations, and call for papers.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="tutorials">
+<div id="site-header"></div>
+
+<main id="main">
+<div class="wrap narrow">
+  <div class="page-head">
+    <a class="backlink" href="tutorials.html">← All workshops &amp; tutorials</a>
+    <h1>Vortex Workshop and Tutorial at MICRO 2024</h1>
+    <p>A half-day tutorial followed by three workshop presentations.</p>
+  </div>
+
+  <div class="article">
+    <div class="article-body">
+
+      <div class="factbox">
+        <dl>
+          <dt>Date</dt><dd>Sunday, 3 November 2024</dd>
+          <dt>Time</dt><dd>8:00 – 12:00 CST</dd>
+          <dt>Room</dt><dd>101</dd>
+          <dt>Materials</dt><dd><a href="https://github.com/vortexgpgpu/vortex_tutorials" target="_blank" rel="noopener">vortexgpgpu/vortex_tutorials</a></dd>
+        </dl>
+      </div>
+
+      <h2>Organizers</h2>
+      <div class="pill-list">
+        <span>Hyesoon Kim — Georgia Tech</span>
+        <span>Blaise Tine — UCLA</span>
+        <span>Jeff Young — Georgia Tech</span>
+        <span>Jaewon Lee — Georgia Tech</span>
+        <span>Seonjin Na — Georgia Tech</span>
+        <span>Liam Cooper — Georgia Tech</span>
+        <span>Chihyo (Mark) Ahn — Georgia Tech</span>
+      </div>
+
+      <h2>Tutorial Schedule</h2>
+      <div class="table-scroll">
+      <table class="schedule">
+        <thead><tr><th>Time</th><th>Session</th></tr></thead>
+        <tbody>
+          <tr><td>08:00–08:20</td><td>Introduction and GPU background</td></tr>
+          <tr><td>08:20–09:20</td><td>Vortex microarchitecture and software stack</td></tr>
+          <tr><td>09:20–09:40</td><td>CuPBoP: running OpenCL/CUDA on Vortex</td></tr>
+          <tr><td>09:40–10:00</td><td>Q&amp;A session</td></tr>
+          <tr><td>10:00–10:20</td><td>Coffee break</td></tr>
+          <tr><td>10:20–11:00</td><td>Tutorial assignments / hands-on exercises</td></tr>
+          <tr><td>11:00–12:00</td><td>Vortex workshop presentations (3 speakers)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>More details for the tutorial are updated at the <a href="https://github.com/vortexgpgpu/vortex_tutorials" target="_blank" rel="noopener">Vortex Tutorial GitHub repository</a>.</p>
+
+      <hr>
+
+      <h2>Workshop Presentations</h2>
+      <p>Each presentation consists of a 15-minute talk followed by a 5-minute Q&amp;A session.</p>
+      <div class="table-scroll">
+      <table class="schedule">
+        <thead><tr><th>Time</th><th>Speaker</th><th>Institution</th><th>Title</th></tr></thead>
+        <tbody>
+          <tr><td>11:00–11:20</td><td><strong>Davy Million</strong></td><td>Université Grenoble Alpes</td><td>Preliminary Integration of Vortex within the OpenPiton Platform</td></tr>
+          <tr><td>11:20–11:40</td><td><strong>Matt Sinclair</strong></td><td>University of Wisconsin–Madison</td><td>Prototyping Mechanisms to Co-design Power Management and Performance in Accelerator-Rich Systems</td></tr>
+          <tr><td>11:40–12:00</td><td><strong>Martin Troiber</strong></td><td>Technical University of Munich</td><td>Analysis of the RISC-V Vector Extension for Vulkan Graphics Kernels on the Vortex GPU</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>1. Preliminary Integration of Vortex within the OpenPiton Platform</h3>
+      <p><strong>Authors:</strong> Davy Million, César Fuguet, Adrian Evans, Jonathan Balkind, Frédéric Petrot</p>
+      <p><strong>Institutions:</strong> Univ. Grenoble Alpes, CEA, List; University of California, Santa Barbara; Univ. Grenoble Alpes, TIMA</p>
+      <p>This paper details the initial integration of the Vortex GPU core into the OpenPiton many-core research platform. Vortex, an open-source RISC-V-based GPU, was connected to OpenPiton using an AXI-4 to P-Mesh bridge, enabling shared memory access between Vortex and general-purpose processors without data copying. The integration allows for heterogeneous computing but faces performance bottlenecks due to the non-pipelined bridge, particularly for workloads exceeding the L1 cache size. Initial benchmarks using a vector addition kernel showed that while Vortex can handle memory latency in standalone mode, performance drops when integrated with OpenPiton due to cache miss serialization. Future improvements include pipelining the bridge and enhancing memory coherence mechanisms to optimize performance in this open-source heterogeneous CPU/GPU system.</p>
+
+      <h3>2. Prototyping Mechanisms to Co-design Power Management and Performance in Accelerator-Rich Systems</h3>
+      <p><strong>Authors:</strong> Matt Sinclair, Shivaram Venkataraman</p>
+      <p><strong>Institution:</strong> University of Wisconsin–Madison</p>
+      <p>In recent years, to reach performance goals modern computing systems are increasingly turning to using large numbers of compute accelerators, which offer greater power efficiency and thus enable higher performance within a constrained power budget. However, using accelerators increases heterogeneity at multiple levels, including the architecture, resource allocation, competing user needs, and manufacturing variability. Accordingly, current and future systems need to efficiently handle many simultaneous jobs while balancing power management (PM) and multiple levels of heterogeneity. In recent work, we have demonstrated the extent of this variability in modern accelerator-rich systems (SC'22) and shown how to embrace variability in cluster-level job schedulers (SC'24).</p>
+      <p>However, scheduling jobs more efficiently at the software and runtime layers is limited in its ability to quickly and dynamically change policies as cluster conditions evolve. A major limiter to further improving efficiency is the lack of standards for exposing power information in modern accelerators. Thus, for future systems we propose to build on the insights generated by our optimizations for current systems, and apply co-design that makes the hardware, software, and runtime layers aware of the variance in the systems. In this talk, I will discuss our ongoing efforts at harnessing variability in accelerator-rich systems and how we hope to leverage the Vortex open-source GPU hardware to prototype our proposed ideas.</p>
+
+      <h3>3. Analysis of the RISC-V Vector Extension for Vulkan Graphics Kernels on the Vortex GPU</h3>
+      <p><strong>Authors:</strong> Martin Troiber, Hyesoon Kim, Blaise Tine, Martin Schulz</p>
+      <p><strong>Institutions:</strong> Technical University of Munich; Georgia Institute of Technology; University of California, Los Angeles</p>
+      <p>In this work we analyze the benefits of the RISC-V vector extension for accelerating 3D graphics kernels. Our work uses open-source projects for the graphics driver (SwiftShader), GPU (Vortex) and instruction set architecture (RISC-V). For our purpose we modified the graphics driver to generate kernels with vector instructions. We then extended the GPU simulator to execute the vectorized kernels. To augment our simulated performance measurements we used a CPU (Kendryte K230) with the same vector instructions. On both platforms we analyzed the popular gears example from the Vulkan demo scenes. In GPU simulation, we could reduce the cycle count by up to 54% compared to scalar kernels. On the CPU we increased the frame rate of the gears demo scene by over 85% compared to scalar execution. The measured 13fps@1080p is the highest frame rate achieved using SwiftShader on any RISC-V single board computer.</p>
+
+      <hr>
+
+      <h2>Call for Papers</h2>
+      <p>The Vortex Workshop aims to bring together Vortex developers, contributors, and users from academia and industry to discuss Vortex-related research. The Vortex Tutorial will be held in conjunction with the workshop, providing an introduction to Vortex and its use in research and teaching.</p>
+
+      <h3>Topics of interest</h3>
+      <ul>
+        <li>Design and implementation of Vortex GPGPU</li>
+        <li>OpenCL/CUDA running on Vortex</li>
+        <li>Compiler optimizations for Vortex</li>
+        <li>Memory hierarchy and management in Vortex GPGPU</li>
+        <li>Benchmarking and performance evaluation</li>
+        <li>Applications and case studies using Vortex</li>
+        <li>Security and reliability in GPGPU architecture</li>
+        <li>Comparison of Vortex with other GPGPU architectures</li>
+        <li>FPGA/ASIC implementation of Vortex</li>
+      </ul>
+
+      <h3>Submission guidelines</h3>
+      <p>Authors are invited to submit 2-page papers, which must be formatted in accordance with the ACM two-column style. ACM Word or LaTeX style templates are available <a href="https://www.acm.org/publications/proceedings-template" target="_blank" rel="noopener">here</a>. <strong>Note:</strong> Workshop publications do not preclude publishing at future conference venues.</p>
+
+      <h3>Important dates</h3>
+      <div class="table-scroll">
+      <table class="schedule">
+        <thead><tr><th>Date</th><th>Milestone</th></tr></thead>
+        <tbody>
+          <tr><td>Sep 5, 2024</td><td>Paper submission deadline (23:59 EDT)</td></tr>
+          <tr><td>Sep 17, 2024</td><td>Author notification</td></tr>
+          <tr><td>Nov 3, 2024</td><td>Workshop date (8:00 AM – 12:00 PM CST)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Organizing committee</h3>
+      <ul>
+        <li><strong>General Chairs:</strong> Hyesoon Kim (Georgia Tech), Blaise Tine (UCLA)</li>
+        <li><strong>Session Chair:</strong> Jaewon Lee (Georgia Tech)</li>
+        <li><strong>Web Chair:</strong> Seonjin Na (Georgia Tech)</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>For more information about submissions to the Vortex Workshop, please email <a href="mailto:vortex_submission@groups.gatech.edu">vortex_submission@groups.gatech.edu</a>.</p>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

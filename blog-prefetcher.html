@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SimX Implementation of Cache in Vortex and a HW Prefetcher Design — Vortex Blog</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#003057">
+<meta name="description" content="The Vortex memory hierarchy, its SimX cache model, and the design and implementation of a stride prefetcher in the data cache.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="blog">
+<div id="site-header"></div>
+
+<main id="main">
+<div class="wrap narrow">
+  <div class="page-head">
+    <a class="backlink" href="blog.html">← All blog posts</a>
+    <h1>SimX Implementation of Cache in Vortex and a HW Prefetcher Design</h1>
+    <p>Author: Vora Mihir Ketan — undergraduate intern, BITS Pilani</p>
+  </div>
+
+  <div class="article">
+    <div class="article-body">
+
+      <p>I have been working in the Vortex group as a remote research intern at Georgia Institute of Technology. This blog talks about my work done during the internship. It explains the current cache design for Vortex and the SimX implementation of the cache. It also includes a prefetcher design and my progress on its implementation.</p>
+
+      <h2>Current cache design</h2>
+      <p>The current Vortex memory hierarchy is as follows: each core has a private data cache (L1 cache). All the cores in a cluster share an L2 cache. All the clusters together share an L3 cache. DRAM memory resides past the L3 cache.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483522/preview/36483522/preview.jpg" alt="Vortex memory hierarchy" loading="lazy"><figcaption>The Vortex memory hierarchy</figcaption></figure>
+
+      <p>A prefetcher can be implemented at any of these levels of the memory hierarchy. This blog talks about the implementation of a hardware prefetcher in the data cache. The cache memory is divided into multiple banks. These banks process memory requests in parallel, so multiple memory requests can be processed at a given time. Each bank has an arbiter, tag RAM, data RAM, and MSHR (miss handling status register). The incoming memory requests from the core are redirected to an appropriate bank based on the requested memory address. These are sent through the arbiter and checked for a hit. In case of a hit, the requested data is sent as a core response. For a miss, a DRAM request is sent out while recording an entry for the same in the MSHR. Once a DRAM response is received for an MSHR entry, the entry is evicted and data is sent as a core response.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483525/preview/36483525/preview.jpg" alt="Cache bank structure" loading="lazy"><figcaption>Structure of a cache bank</figcaption></figure>
+
+      <h2>Current cache implementation</h2>
+      <p>The most basic struct in the implementation is <code>block_t</code>, consisting of the fields valid, dirty, tag, and LRU counter. <code>set_t</code> is implemented as a vector of blocks. The struct <code>bank_req_t</code> holds the fields used to create a new memory access request at a bank. An MSHR entry is made up of a block ID and <code>bank_req_t</code> fields.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483528/preview/36483528/preview.jpg" alt="Cache data structures" loading="lazy"><figcaption>Core cache data structures</figcaption></figure>
+
+      <p>The MSHR has been implemented as a separate class. It consists of the following functions:</p>
+      <ol>
+        <li><strong>Lookup</strong> — find an existing valid MSHR entry corresponding to a particular memory request.</li>
+        <li><strong>Allocate</strong> — allocate a new MSHR entry for a memory request.</li>
+        <li><strong>Replay</strong> — mark a valid entry for replay.</li>
+        <li><strong>Pop</strong> — evict a valid entry marked for replay.</li>
+        <li><strong>Clear</strong> — invalidate all MSHR entries.</li>
+      </ol>
+
+      <p>The <code>bank_t</code> struct consists of <code>set_t</code> and an MSHR. The creation of a memory request is done by the tick function inside class <code>Cache</code>. This function is executed repeatedly every clock cycle. A vector named <code>pipeline_req</code> of type <code>bank_req_t</code> and of the size of the number of banks is created. First the MSHR entries marked for replay are popped out. After that, the memory response port is checked and fill requests are processed if any. Once a fill request is processed, the corresponding MSHR entry is marked for replay. After these operations complete, a check is performed for new core requests and a new memory request is created using the fields in <code>bank_req_t</code>. Then a check is performed to make sure there are no pending actions for the memory request already present in <code>pipeline_req</code> at that bank ID. In case of no pending actions, a new request is inserted into the pipeline and the bank request is processed using the function <code>processBankRequest</code>.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483531/preview/36483531/preview.jpg" alt="Cache tick function" loading="lazy"><figcaption>The per-cycle tick function</figcaption></figure>
+
+      <p>In <code>processBankRequest</code>, the <code>pipeline_req</code> is first checked for MSHR replay. If the MSHR replay is marked as true, it means the fill request for this memory location has already been processed, so a core response can be sent directly. Otherwise the cache is checked for a hit or miss. In case of a read miss, a DRAM request is initiated for the memory location and an MSHR entry is recorded for it using the lookup and allocate functions.</p>
+
+      <h2>Prefetcher design</h2>
+      <p>A stride prefetcher has been implemented in the data cache. It is capable of detecting a single sequence having a constant stride. It prefetches if the stride is maintained for three or more memory requests. All the banks share one common prefetcher, unlike the tag access or MSHR. The prefetch buffer can store one prefetch request per bank, so if there is a pending prefetch request at some bank, a new prefetch request for that bank isn't created. Also, if the bank MSHR is already full handling core requests, it isn't burdened further and no prefetch request is created for that bank.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483534/preview/36483534/preview.jpg" alt="Prefetcher flowchart" loading="lazy"><figcaption>Prefetcher operation flowchart</figcaption></figure>
+
+      <p>On every cache read miss, the possibility of a prefetch is checked. If a continuous stride is maintained for three or more memory requests and the previously mentioned conditions are satisfied, a prefetch request is created and added to the prefetch buffer. The prefetch buffer will execute a prefetch request for a bank only in the absence of a core request on that bank. This way core requests take priority over prefetch requests, and performance isn't significantly hampered even in the case of a false prefetch.</p>
+
+      <h2>Prefetcher implementation</h2>
+      <p>The prefetcher has been implemented as a separate class. A new field has been added in <code>bank_req_t</code> called <code>prefetch</code>. It is 1 if the memory request being created is a prefetch request, else 0. The <code>prefetcher-&gt;update</code> function is called on every cache read miss. This function checks the stride and stride count. If the conditions are satisfied, it creates a prefetch request using fields in <code>bank_req_t</code> with <code>prefetch</code> set to 1. The prefetch buffer has been implemented as a vector of <code>bank_req_t</code>, similar to <code>pipeline_req</code>.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483537/preview/36483537/preview.jpg" alt="Prefetcher update function" loading="lazy"><figcaption>The prefetcher update function</figcaption></figure>
+
+      <p>The created prefetch request for a bank is added to the buffer after confirming that the bank MSHR is not full and no pending prefetch requests are present on that bank.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483540/preview/36483540/preview.jpg" alt="Prefetch buffer insertion" loading="lazy"><figcaption>Inserting into the prefetch buffer</figcaption></figure>
+
+      <p>While processing bank requests, it is checked whether a valid core request is not present and a valid prefetch request is present for the bank. If so, the invalid <code>pipeline_req</code> at that bank is replaced by the valid <code>prefetch_req</code>, and the <code>prefetch_req</code> is marked invalid, making space for the next prefetch request. The conditions for sending core responses have also been modified to make sure that a core response is not sent for a prefetch request.</p>
+
+      <h2>Testing and debugging</h2>
+      <p>Already existing benchmarks in Vortex can be used for verifying the implementation. It should first be tested with basic tests under regression and debugged there for failures. After that it can be verified with more complex OpenCL tests. All the tests under a given folder can be executed using a single command line (for example, <code>make -C tests/opencl run-simx</code>). As of now the prefetcher implementation doesn't pass all the benchmarks and will have to be debugged.</p>
+      <figure><img src="https://figshare.com/ndownloader/files/36483543/preview/36483543/preview.jpg" alt="Test output" loading="lazy"><figcaption>Running the regression tests</figcaption></figure>
+
+      <p>For debugging, the Run and Debug feature of Visual Studio Code is utilized. To run a visual debug, the C/C++ extension of VS Code is needed. To enable debugging, append the debug flag (<code>-g</code>) while running make. In the <code>launch.json</code> file, an entry has to be added for the test you want to debug. In the entry, <em>stop at entry</em> is marked true. This will stop execution at the entry point of the main function for the associated test. After that you can step through, set breakpoints, analyze values for different variables, and debug.</p>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

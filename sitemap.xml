@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vortex.cc.gatech.edu/</loc><priority>1.0</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/publications.html</loc><priority>0.9</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/news.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/teams.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/tutorials.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2026.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2025.html</loc><priority>0.7</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2024.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2023.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2022.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/micro2021.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/blog.html</loc><priority>0.7</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/blog-64bit.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/blog-prefetcher.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vortex.cc.gatech.edu/community.html</loc><priority>0.7</priority></url>
+</urlset>
