@@ -114,8 +114,7 @@
     var title = p.link
       ? '<h3><a class="pub-title" href="' + p.link + '" target="_blank" rel="noopener">' + esc(p.title) + '</a></h3>'
       : '<h3>' + esc(p.title) + '</h3>';
-    var badge = p.link
-      ? '<span class="go-hint" aria-hidden="true">Open ↗</span>'
+    var badge = p.link ? ''
       : '<span class="vn vn-muted">' + esc(p.note || 'Link unavailable') + '</span>';
 
     return '<article class="pub' + (p.link ? ' is-linked' : '') + '" data-year="' + p.year + '"' +
@@ -139,19 +138,10 @@
     btn.textContent = shown ? 'Hide abstract' : 'Show abstract';
   });
 
-  /* whole-card click → target page (ignores clicks on nested links/buttons
-     and on text the user is selecting) */
-  document.addEventListener('click', function (e) {
-    var card = e.target.closest('.pub[data-href], .fcard[data-href], .person[data-href]');
-    if (!card) return;
-    if (e.target.closest('a, button')) return;
-    var sel = w_getSelection();
-    if (sel && String(sel).length > 0) return;
-    window.open(card.getAttribute('data-href'), '_blank', 'noopener');
-  });
-  function w_getSelection() {
-    try { return window.getSelection(); } catch (err) { return null; }
-  }
+  /* Whole-card links use the "stretched link" pattern in CSS: the title anchor
+     paints a transparent ::after over the card, so a click anywhere on the card
+     is a real anchor activation. No window.open, so nothing is popup-blocked and
+     middle-click / cmd-click open in a new tab as users expect. */
 
   /* copy-to-clipboard for BibTeX blocks */
   document.addEventListener('click', function (e) {
@@ -209,11 +199,14 @@
       : esc(p.name);
     return '<div class="person' + (p.site ? ' is-linked' : '') + '"' +
       (p.site ? ' data-href="' + p.site + '"' : '') + '>' +
-      '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">' +
-      '<div class="nm">' + name + '</div>' +
-      '<div class="rl">' + esc([p.role, p.org].filter(Boolean).join(' · ')) + '</div>' +
-      (p.email ? '<div class="em">' + esc(p.email) + '</div>' : '') +
-      (p.site ? '<div class="hp">Homepage ↗</div>' : '') +
+      '<div class="photo"><img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">' +
+        (p.site ? '<span class="hp" aria-hidden="true">↗</span>' : '') +
+      '</div>' +
+      '<div class="meta">' +
+        '<div class="nm">' + name + '</div>' +
+        '<div class="rl">' + esc([p.role, p.org].filter(Boolean).join(' · ')) + '</div>' +
+        (p.email ? '<div class="em">' + esc(p.email) + '</div>' : '') +
+      '</div>' +
       '</div>';
   }
 

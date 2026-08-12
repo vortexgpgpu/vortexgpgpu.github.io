@@ -178,7 +178,6 @@ window.VORTEX = {
       authors: "Shinnung Jeong, Chihyo Ahn, Huanzhi Pu, Jisheng Zhao, Hyesoon Kim, Blaise Tine",
       venue: "CC (SIGPLAN)", year: 2026,
       link: "https://dl.acm.org/doi/10.1145/3771775.3786275",
-      extra: [{ label: "arXiv", href: "https://arxiv.org/abs/2511.13751" }],
       abstract: "VOLT — the Vortex-Optimized Lightweight Toolchain — enables SIMT code generation and optimization across multiple levels of abstraction through a hierarchical design that accommodates diverse front-end languages and open GPU hardware. It is the first published, end-to-end open-source CUDA/OpenCL compiler for an open GPU, built on LLVM and PoCL and integrating CuPBoP for CUDA support." },
 
     { title: "Deploying Vortex FPGA Development Environment with Apptainer",
@@ -261,7 +260,6 @@ window.VORTEX = {
       authors: "Blaise Tine, Krishna Praveen Yalamarthy, Fares Elsabbagh, Hyesoon Kim",
       venue: "MICRO-54", year: 2021,
       link: "https://dl.acm.org/doi/10.1145/3466752.3480128",
-      extra: [{ label: "arXiv", href: "https://arxiv.org/abs/2110.10857" }],
       abstract: "Despite GPUs being one of the more popular accelerators across various applications, there is very little open-source GPU infrastructure in the public domain. In this work, we propose an ISA extension to RISC-V that supports GPGPUs and graphics, with the goal of minimizing ISA changes so that the corresponding changes to the open-source ecosystem are also minimal. To demonstrate the feasibility of the minimally extended RISC-V ISA, we implemented the complete software and hardware stacks of Vortex on FPGA. Vortex is a PCIe-based soft GPU that supports OpenCL and OpenGL and scales up to 32 cores on an Altera Stratix 10 FPGA." },
 
     { title: "Vortex: OpenCL Compatible RISC-V GPGPU",

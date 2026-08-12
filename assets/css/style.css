@@ -201,14 +201,15 @@ section.pull-up{padding-top:52px}
 .pub h3{font-size:1.08rem;font-weight:700;line-height:1.4;letter-spacing:-.01em}
 .pub h3 .pub-title{color:inherit}
 
+/* Stretched link: the title anchor covers the whole card, so clicking anywhere
+   on the card follows the real link. Nested links and buttons sit above it. */
+.pub,.fcard,.person{position:relative}
+.pub-title::after,.fcard-title::after,.person-link::after{content:"";position:absolute;inset:0;z-index:1}
+.pub .acts,.pub .top,.fcard .fcta,.person .hp{position:relative;z-index:2}
+.pub .acts a,.pub .acts button{position:relative;z-index:2}
+
 /* clickable card ---------------------------------------------------------- */
 .pub.is-linked{cursor:pointer}
-.pub .go-hint{
-  margin-left:auto;font-size:.72rem;font-weight:700;color:var(--brand);
-  opacity:0;transform:translateX(-4px);transition:.2s;white-space:nowrap;
-}
-.pub.is-linked:hover .go-hint,
-.pub.is-linked:focus-within .go-hint{opacity:1;transform:translateX(0)}
 .pub.is-linked:hover h3{color:var(--brand)}
 .pub h3 .pub-title:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
 .pub .au{font-size:.85rem;color:var(--muted);margin-top:10px;line-height:1.55}
@@ -289,22 +290,31 @@ section.pull-up{padding-top:52px}
 .post .go{margin-top:18px}
 
 /* people ---------------------------------------------------------------- */
-/* People grids are capped so cards keep sensible proportions on wide screens. */
-.grid-4{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1420px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:860px}
-.person{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;transition:.2s}
+/* People grids: fixed-width tracks so every portrait tile is the same size in
+   every section, capped so they don't stretch on wide screens. */
+.grid-4,.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:18px;max-width:1320px}
+/* Photo-forward tile: the portrait fills the top of the card edge to edge,
+   with the name and role in a caption band underneath. */
+.person{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
 .person:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--brand)}
-.person img{width:92px;height:92px;border-radius:18px;object-fit:cover;background:var(--brand-soft);margin:0 auto}
-.person .nm{font-weight:800;margin-top:15px;font-size:1rem;letter-spacing:-.01em}
+.person .photo{position:relative;aspect-ratio:1/1;background:var(--brand-soft);overflow:hidden}
+.person .photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;transition:transform .35s ease}
+.person:hover .photo img{transform:scale(1.04)}
+.person .meta{padding:16px 18px 18px;flex:1}
+.person .nm{font-weight:800;font-size:1rem;letter-spacing:-.01em;line-height:1.3}
 .person .nm .person-link{color:inherit}
 .person .nm .person-link:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
-.person .rl{font-size:.83rem;color:var(--muted);margin-top:3px}
-.person .em{font-size:.78rem;color:var(--brand);margin-top:6px;font-family:'JetBrains Mono',monospace;word-break:break-all}
+.person .rl{font-size:.84rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.person .em{font-size:.76rem;color:var(--brand);margin-top:7px;font-family:'JetBrains Mono',monospace;word-break:break-all}
 .person.is-linked{cursor:pointer}
-.person .hp{margin-top:10px;font-size:.74rem;font-weight:700;color:var(--brand);opacity:0;transition:.2s}
-.person.is-linked:hover .hp,.person.is-linked:focus-within .hp{opacity:1}
 .person.is-linked:hover .nm{color:var(--brand)}
-.person.is-linked:hover img{box-shadow:0 0 0 3px var(--gold-soft)}
+.person .hp{
+  position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.94);color:var(--brand);
+  display:grid;place-items:center;font-size:.82rem;font-weight:700;
+  opacity:0;transform:translateY(-4px);transition:.2s;
+}
+.person.is-linked:hover .hp,.person.is-linked:focus-within .hp{opacity:1;transform:translateY(0)}
 
 /* sponsors -------------------------------------------------------------- */
 .sponsor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1420px}
@@ -429,9 +439,6 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
 .nf .cta{justify-content:center}
 
 /* responsive ------------------------------------------------------------ */
-@media (max-width:1500px){
-  .grid-4{grid-template-columns:repeat(4,1fr)}
-}
 @media (max-width:1240px){
   .pubgrid,.tutgrid,.bloggrid,.comm{grid-template-columns:repeat(2,1fr)}
 }
@@ -441,7 +448,6 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
   .hero-grid{grid-template-columns:1fr;gap:34px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .fgrid{grid-template-columns:repeat(2,1fr)}
-  .grid-4{grid-template-columns:repeat(3,1fr)}
   .sponsor-grid{grid-template-columns:repeat(3,1fr)}
   .foot-grid{grid-template-columns:1fr 1fr}
   .article-body{padding:40px 44px}
@@ -451,7 +457,6 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
   .hero{padding:56px 0 40px}
   section{padding:48px 0}
   .pubgrid,.tutgrid,.bloggrid,.comm{grid-template-columns:1fr}
-  .grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}
   .sponsor-grid{grid-template-columns:repeat(2,1fr)}
   .stats{grid-template-columns:1fr}
   .fgrid{grid-template-columns:1fr}
