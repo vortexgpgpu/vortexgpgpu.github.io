@@ -408,9 +408,9 @@ window.VORTEX = {
   /* ---------- teams ---------- */
   faculty: [
     { name: "Hyesoon Kim", role: "Professor", org: "Georgia Tech",
-      img: "https://i.imgur.com/GKlxeEq.jpg", site: "https://hyesoon.github.io/" },
+      img: "https://hyesoon.github.io/assets/img/hyesoon_profile.jpg", site: "https://hyesoon.github.io/" },
     { name: "Blaise Tine", role: "Assistant Professor", org: "UCLA",
-      img: "https://i.imgur.com/L7D3VDJ.jpg", site: "https://blaisetine.github.io/" },
+      img: "https://blaisetine.github.io/images/profile.jpg", site: "https://blaisetine.github.io/" },
     { name: "Jeffrey Young", role: "Research Scientist", org: "Georgia Tech",
       img: "https://sites.gatech.edu/hparch/files/2023/08/jyoung_headshot.jpg", site: "https://jyoung3131.github.io/" }
   ],
