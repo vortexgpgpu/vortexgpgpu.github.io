@@ -113,7 +113,7 @@ window.VORTEX = {
 
   featured: {
     title: "Vortex Workshop and Tutorial at MICRO 2026",
-    date: "31 October – 4 November 2026 · Athens, Greece",
+    date: "1 November 2026 · Athens, Greece",
     href: "micro2026.html"
   },
 
@@ -319,7 +319,7 @@ window.VORTEX = {
       note: "Blaise Tine and Shinnung Jeong presented Vortex work at the Open-Source Computer Architecture Research workshop (OSCAR), co-located with ISCA 2026 in Raleigh, NC — covering end-to-end ML support, thread-scalable 2:4 structured sparsity, ray-tracing acceleration (PRISM), cycle-level profiling (CycleFence), and async barrier / TMA support.",
       href: "https://oscar-workshop.github.io/Program_2026.html", cta: "See the program" },
     { title: "Vortex Workshop and Tutorial at MICRO 2026", date: "2026-08-01",
-      note: "The Vortex Workshop and Tutorial returns at MICRO 2026 in Athens, Greece. The call for papers is now open.",
+      note: "The Vortex Workshop and Tutorial returns at MICRO 2026 in Athens, Greece on 1 November. The call for papers is now open.",
       href: "micro2026.html", cta: "See details and CFP" },
     { title: "Vortex Workshop and Tutorial at MICRO 2025", date: "2025-10-17",
       note: "Details can be found on the MICRO 2025 page.", href: "micro2025.html", cta: "See details" },
@@ -377,7 +377,7 @@ window.VORTEX = {
   /* ---------- workshops & tutorials ---------- */
   tutorials: [
     { year: 2026, title: "Vortex Workshop and Tutorial at MICRO 2026",
-      subtitle: "Workshop and Tutorial", date: "MICRO 2026 · Athens, Greece", href: "micro2026.html",
+      subtitle: "Workshop and Tutorial", date: "1 November 2026 · Athens, Greece", href: "micro2026.html",
       note: "Call for papers open.", upcoming: true },
     { year: 2025, title: "Vortex Workshop and Tutorial at MICRO 2025",
       subtitle: "Workshop and Tutorial", date: "18 October 2025", href: "micro2025.html",
