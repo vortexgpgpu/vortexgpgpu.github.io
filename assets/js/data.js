@@ -139,11 +139,17 @@ window.VORTEX = {
       link: "https://oscar-workshop.github.io/files/4_3_Vortex_sparsity.pdf",
       extra: [{ label: "Code", href: "https://github.com/vortexgpgpu/vortex/tree/oscar-sparse-tcu" }] },
 
+    { title: "VESICA: Fused Vector Extension for RISC-V Embedded GPUs",
+      authors: "Dao Xian Ding, Michael Srouji, Brandon Kam, Nader Sehatbakhsh, Blaise Tine",
+      venue: "ICCAD", year: 2026 },
+
     { title: "PRISM: Accelerating Ray Tracing on RISC-V GPU",
       authors: "Kuan Fu Chen, Blaise Tine",
-      venue: "OSCAR (poster)", year: 2026,
-      link: "https://oscar-workshop.github.io/files/P_10_PRISM.pdf",
-      extra: [{ label: "Code", href: "https://github.com/vortexgpgpu/vortex/tree/prism" }] },
+      venue: "ICCD", year: 2026,
+      extra: [
+        { label: "OSCAR poster", href: "https://oscar-workshop.github.io/files/P_10_PRISM.pdf" },
+        { label: "Code", href: "https://github.com/vortexgpgpu/vortex/tree/prism" }
+      ] },
 
     { title: "CycleFence: Precise Cycle-Level Profiling for RISC-V GPUs",
       authors: "Xinle Song, Blaise Tine",
@@ -157,7 +163,7 @@ window.VORTEX = {
       link: "https://oscar-workshop.github.io/files/1_2_OSCAR_vortex_ML_final.pdf" },
 
     { selected: true, title: "Ten-Four: An Open-Source Fused Dot Product Unit for Mixed-Precision GPGPU Tensor Cores",
-      authors: "N. Rout, Blaise Tine",
+      authors: "Nikhil Rout, Blaise Tine",
       venue: "Vortex Workshop", year: 2026,
       link: "https://arxiv.org/abs/2512.00053",
       abstract: "Ten-Four is a scalable mixed-precision fused dot product unit that integrates both floating-point and integer arithmetic pipelines within a single fused architecture, implemented as part of the open-source RISC-V-based Vortex GPGPU's Tensor Core Unit extension. The design supports low-precision multiplication in FP16/BF16/FP8/BF8/INT8/INT4 formats with higher-precision accumulation in FP32/INT32, with native support for Microscaling (MX) formats and sparse lane clock-gating for dynamic power reduction." },
@@ -425,7 +431,11 @@ window.VORTEX = {
       img: "https://sites.gatech.edu/hparch/files/2023/09/saurabh_singh-edited.jpg", site: "https://sites.google.com/view/saursin" },
     { name: "Liam Cooper", role: "HW", org: "Georgia Tech", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
     { name: "Eric Lorimer", role: "SW", org: "Georgia Tech",
-      img: "https://sites.gatech.edu/hparch/files/2025/01/1516566335103.jpg" }
+      img: "https://sites.gatech.edu/hparch/files/2025/01/1516566335103.jpg" },
+    { name: "Nikhil Rout", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
+    { name: "Chengxuan Wang", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
+    { name: "Yanggon Kim", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
+    { name: "Jacob Leigh", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" }
   ],
   alumni: [
     { name: "Fares Elsabbagh", role: "HW", org: "", img: "https://i.imgur.com/H6uaoXy.png" },
