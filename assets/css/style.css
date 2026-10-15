@@ -139,15 +139,15 @@ body::before{
 .hero-card .tt{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .hero-banner{margin:0}
 .hero-banner img{display:block;width:100%;height:auto;-webkit-mask-image:radial-gradient(ellipse 72% 80% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 72% 80% at 50% 50%,#000 60%,transparent 100%)}
-/* Desktop: banner bleeds to the card's right edge and takes more of the width. */
+/* Desktop: a bit more room for the banner; only the top/bottom edges fade so the side labels stay readable. */
 @media (min-width:1001px){
-  .hero .hero-grid{grid-template-columns:.82fr 1.18fr;gap:clamp(16px,2vw,32px);overflow:hidden;border-radius:28px;padding-right:0}
+  .hero .hero-grid{grid-template-columns:.84fr 1.16fr;gap:clamp(16px,2vw,28px);padding-right:clamp(8px,1vw,16px);overflow:hidden;border-radius:28px}
   .hero .hero-grid h1{font-size:clamp(2.2rem,3.3vw,3.4rem)}
+  .hero .hero-grid > div:first-child{position:relative;z-index:1}
   .hero-banner img{
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%),linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,transparent 0,#000 8%),linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%);
-    mask-composite:intersect}
+    transform:translateX(-3.5%) scale(1.07);transform-origin:35% 50%;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+    mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%)}
 }
 .qs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;box-shadow:0 6px 20px rgba(0,48,87,.06)}
 .qs-card .tt{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
@@ -525,7 +525,11 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
   section{padding:48px 0}
   .pubgrid,.tutgrid,.bloggrid,.comm{grid-template-columns:1fr}
   .sponsor-grid{grid-template-columns:repeat(2,1fr)}
-  .stats{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat{padding:14px 14px 13px;border-radius:12px}
+  .stat .k{font-size:.6rem;letter-spacing:.07em}
+  .stat .v{font-size:1.3rem;margin:4px 0 3px}
+  .stat .d{font-size:.72rem;line-height:1.45}
   .fgrid{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr;gap:28px}
   .article-body{padding:28px 22px}
