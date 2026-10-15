@@ -321,6 +321,9 @@ window.VORTEX = {
 
   /* ---------- news ---------- */
   news: [
+    { title: "Vortex v3.0 released", date: "2026-06-09",
+      note: "Vortex v3.0 is out. Highlights include a fixed-function graphics pipeline; tensor cores with 2:4 structured sparsity, warpgroup-level MMA, and FP8/BF8/TF32 formats; an async global-to-local transfer engine (DXA), hardware atomics, and an SV32 MMU; a new Command Processor and async runtime API; Vulkan (Mesa/lavapipe) and HIP (chipStar) backends with LLVM 20 and POCL 7.0; a native IEEE-754 FPU; and Synopsys/Yosys ASIC flows with a SimX v3 transaction-level simulator.",
+      href: "https://github.com/vortexgpgpu/vortex/releases/tag/v3.0", cta: "See release notes" },
     { title: "Vortex work presented at OSCAR 2026", date: "2026-06-28",
       note: "Blaise Tine and Shinnung Jeong presented Vortex work at the Open-Source Computer Architecture Research workshop (OSCAR), co-located with ISCA 2026 in Raleigh, NC — covering end-to-end ML support, thread-scalable 2:4 structured sparsity, ray-tracing acceleration (PRISM), cycle-level profiling (CycleFence), and async barrier / TMA support.",
       href: "https://oscar-workshop.github.io/Program_2026.html", cta: "See the program" },
@@ -432,9 +435,9 @@ window.VORTEX = {
     { name: "Liam Cooper", role: "HW", org: "Georgia Tech", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
     { name: "Eric Lorimer", role: "SW", org: "Georgia Tech",
       img: "https://sites.gatech.edu/hparch/files/2025/01/1516566335103.jpg" },
-    { name: "Nikhil Rout", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
+    { name: "Nikhil Rout", role: "HW", org: "UCLA", img: "assets/img/team/nikhil-rout.jpg" },
     { name: "Chengxuan Wang", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
-    { name: "Yanggon Kim", role: "HW", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" },
+    { name: "Yanggon Kim", role: "HW", org: "UCLA", img: "assets/img/team/yanggon-kim.jpg" },
     { name: "Jacob Leigh", org: "UCLA", img: "https://sites.gatech.edu/hparch/files/2023/03/placeholder2.jpg" }
   ],
   alumni: [

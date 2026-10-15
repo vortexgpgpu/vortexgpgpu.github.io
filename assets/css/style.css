@@ -116,13 +116,17 @@ body::before{
     radial-gradient(700px 360px at 88% -14%, rgba(179,163,105,.13), transparent 62%);
 }
 .hero{padding:88px 0 64px}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
 .hero h1{font-size:clamp(2.4rem,5vw,3.75rem);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin-top:18px}
 .hero h1 .g{background:linear-gradient(100deg,var(--brand) 10%,var(--gold) 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p.lead{margin-top:22px;color:var(--muted);font-size:1.08rem;max-width:54ch}
 .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
 .hero-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-lg)}
 .hero-card .tt{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-banner{margin:0;border-radius:var(--radius-lg);overflow:hidden;background:#070d18;box-shadow:var(--shadow-lg);border:1px solid #13233a}
+.hero-banner img{display:block;width:100%;height:auto}
+.qs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;box-shadow:0 6px 20px rgba(0,48,87,.06)}
+.qs-card .tt{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .dots{display:flex;gap:5px}
 .dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
 .dots i:first-child{background:#f87171}.dots i:nth-child(2){background:#fbbf24}.dots i:nth-child(3){background:#34d399}
@@ -508,9 +512,8 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
 }
 
 /* Section tabs (Program / Call for Papers). */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 18px}
-.tabs [role=tab]{font:inherit;font-size:.92rem;font-weight:600;color:var(--brand);background:none;border:1px solid transparent;border-radius:8px;padding:9px 16px;cursor:pointer;transition:.15s}
-.tabs [role=tab]:hover{background:var(--bg)}
-.tabs [role=tab][aria-selected=true]{background:var(--brand);color:#fff}
-.tabs [role=tab]:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.tabs{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 8px}
+.tabs .btn{font-family:inherit}
+.tabs .btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.article-body .tab-panel{padding:22px 0 0}
 .article-body .tab-panel > h2:first-child{margin-top:0}

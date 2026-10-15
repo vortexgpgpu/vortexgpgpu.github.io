@@ -47,8 +47,8 @@
       <hr>
 
       <div class="tabs" role="tablist" aria-label="Workshop sections">
-        <button type="button" role="tab" id="tab-program" aria-controls="panel-program" aria-selected="true">Program</button>
-        <button type="button" role="tab" id="tab-cfp" aria-controls="panel-cfp" aria-selected="false" tabindex="-1">Call for Papers</button>
+        <button type="button" class="btn btn-primary" role="tab" id="tab-program" aria-controls="panel-program" aria-selected="true">Program</button>
+        <button type="button" class="btn btn-ghost" role="tab" id="tab-cfp" aria-controls="panel-cfp" aria-selected="false" tabindex="-1">Call for Papers</button>
       </div>
 
       <section class="tab-panel" role="tabpanel" id="panel-program" aria-labelledby="tab-program">
@@ -187,7 +187,7 @@
 (function(){
   var tabs=[].slice.call(document.querySelectorAll('.tabs [role=tab]')); if(!tabs.length) return;
   function show(t,push){
-    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;
+    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;x.classList.toggle('btn-primary',on);x.classList.toggle('btn-ghost',!on);
       document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});
     if(push) history.replaceState(null,'','#'+t.id.replace('tab-',''));
   }

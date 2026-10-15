@@ -41,16 +41,9 @@
           </a>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="tt"><span class="dots"><i></i><i></i><i></i></span> Quickstart</div>
-<div class="codeblock"><span class="c"># clone and build the Vortex GPU</span>
-git clone <span class="g">https://github.com/vortexgpgpu/vortex</span>
-cd vortex && ./ci/<span class="p">toolchain_install.sh</span> --all
-mkdir build && cd build && ../configure
-
-<span class="c"># run a kernel on the SimX simulator</span>
-./ci/<span class="p">blackbox.sh</span> --app=sgemm --cores=4</div>
-      </div>
+      <figure class="hero-banner">
+        <img src="assets/img/vortex-banner.svg" width="1280" height="600" alt="Exploded view of the Vortex stack: application APIs, compilers, runtime and drivers, the RISC-V SIMT ISA, the microarchitecture, HBM, and the FPGA/ASIC substrate.">
+      </figure>
     </div>
     <div class="stats" id="stats"></div>
   </div>
@@ -65,6 +58,20 @@ mkdir build && cd build && ../configure
   <section class="pull-up">
     <div class="sec-head"><h2>What's inside</h2></div>
     <div class="fgrid" id="features"></div>
+  </section>
+
+  <section class="tight" id="quickstart">
+    <div class="sec-head"><h2>Quickstart</h2><a href="https://github.com/vortexgpgpu/vortex" target="_blank" rel="noopener">Full build guide →</a></div>
+    <div class="qs-card">
+      <div class="tt"><span class="dots"><i></i><i></i><i></i></span> Build and run on SimX</div>
+<div class="codeblock"><span class="c"># clone and build the Vortex GPU</span>
+git clone <span class="g">https://github.com/vortexgpgpu/vortex</span>
+cd vortex && ./ci/<span class="p">toolchain_install.sh</span> --all
+mkdir build && cd build && ../configure
+
+<span class="c"># run a kernel on the SimX simulator</span>
+./ci/<span class="p">blackbox.sh</span> --app=sgemm --cores=4</div>
+    </div>
   </section>
 
   <section class="tight">
