@@ -189,7 +189,7 @@ section.pull-up{padding-top:52px}
 
 /* featured banner ------------------------------------------------------- */
 .feat{
-  background:linear-gradient(120deg,#002447,#043c66);color:#fff;
+  background:linear-gradient(120deg,#05203e,#0a345c);color:#fff;
   border:1px solid rgba(255,255,255,.04);
   border-radius:var(--radius-lg);padding:32px 34px;
   display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;
