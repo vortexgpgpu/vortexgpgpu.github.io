@@ -46,6 +46,73 @@
 
       <hr>
 
+      <div class="tabs" role="tablist" aria-label="Workshop sections">
+        <button type="button" role="tab" id="tab-program" aria-controls="panel-program" aria-selected="true">Program</button>
+        <button type="button" role="tab" id="tab-cfp" aria-controls="panel-cfp" aria-selected="false" tabindex="-1">Call for Papers</button>
+      </div>
+
+      <section class="tab-panel" role="tabpanel" id="panel-program" aria-labelledby="tab-program">
+      <h2>Program</h2>
+      <p>Sunday, November 1, 2026 · co-located with MICRO-59, Athens, Greece.</p>
+      <div class="table-scroll">
+      <table class="schedule program">
+        <thead><tr><th>Time</th><th>Title</th><th>Presenter</th></tr></thead>
+        <tbody>
+          <tr class="part"><td colspan="3">Part 1: Vortex GPU Tutorial</td></tr>
+          <tr><td>8:00–8:10</td><td>Intro and GPU background</td><td>Hyesoon Kim</td></tr>
+          <tr><td>8:10–9:10</td><td>Vortex Microarchitecture and Software Stack</td><td>Blaise Tine</td></tr>
+          <tr><td>9:10–9:30</td><td>Volt Compiler Pipeline</td><td>Shinnung Jeong</td></tr>
+          <tr><td>9:30–9:50</td><td>Vortex GPU with Agent</td><td>Hyesoon Kim</td></tr>
+          <tr><td>9:50–10:10</td><td>Vortex Tutorial Assignment</td><td>Hyesoon Kim</td></tr>
+          <tr class="break"><td>10:10–10:40</td><td>Q&amp;A and Coffee Break</td><td>Poster Session</td></tr>
+          <tr class="part"><td colspan="3">Part 2: Vortex Workshop</td></tr>
+          <tr><td>10:40–11:00</td><td>TinyGPT on Vortex: End-to-End Transformer Inference on an FPGA-Based Open-Source GPGPU</td><td>Anastasios Papadopoulos, Andreas Chrysafopoulos and Nikolaos Bellas</td></tr>
+          <tr><td>11:00–11:20</td><td>A Safety-Critical Ecosystem Around the Vortex GPU Infrastructure</td><td>Marc Solé i Bonet, Jannis Wolf, Eric Rufart, Josue Pedrajas, Xavier Carrichio Hernández, Pau Adell Raventos, Pau Lopez Castillon, Guillermo Vidal, Matina Maria Trompouki and Leonidas Kosmidis</td></tr>
+          <tr><td>11:20–11:40</td><td>SIMT Cores near Memory: Caching Outlives Proximity</td><td>Yuan He, Yusuke Kuragaki and Masaaki Kondo</td></tr>
+          <tr><td>11:40–12:00</td><td>Review of Tutorial Assignments and Closing Remarks</td><td>Hyesoon Kim</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <h3>Workshop Session</h3>
+      <p>Talks are presented 10:40–11:40 in Part 2.</p>
+      <ul class="papers">
+        <li class="paper">
+          <button type="button"><strong>TinyGPT on Vortex: End-to-End Transformer Inference on an FPGA-Based Open-Source GPGPU</strong><span>Anastasios Papadopoulos, Andreas Chrysafopoulos and Nikolaos Bellas</span></button>
+          <div class="abs" hidden><p>Transformer inference is typically evaluated on specialized accelerators or proprietary GPU platforms, leaving fewer opportunities to study the workload on an open-source GPU stack. In this paper, we present TinyGPT on Vortex, an OpenCL implementation of decoder-only transformer inference for the Vortex open-source RISC-V GPGPU. Starting from the sequential code of llama2.c, we map the main inference operations to programmable GPU kernels and validate the resulting implementations against the original CPU computation before deployment on an AMD Alveo U250 FPGA. We use a TinyStories-15M checkpoint to evaluate several Vortex hardware configurations with repeated autoregressive generation runs and choose the best-performing configuration to study a targeted attention optimization. Among the baseline configurations tested, 2c8w8t achieves the highest throughput. Fusing the three attention stages into a single kernel on the same hardware improves aggregate generation throughput by 1.74% while reducing mean dynamic instruction count by 35.08%. The resulting framework provides a working platform for studying the interaction between transformer software organization and Vortex GPU configuration.</p></div>
+        </li>
+        <li class="paper">
+          <button type="button"><strong>A Safety-Critical Ecosystem Around the Vortex GPU Infrastructure</strong><span>Marc Solé i Bonet, Jannis Wolf, Eric Rufart, Josue Pedrajas, Xavier Carrichio Hernández, Pau Adell Raventos, Pau Lopez Castillon, Guillermo Vidal, Matina Maria Trompouki and Leonidas Kosmidis</span></button>
+          <div class="abs" hidden><p>GPUs are increasingly considered for use in safety critical systems in order to satisfy the computational demands of high automation. However, safety critical systems have particular requirements that differ from general purpose GPUs. In this abstract, we provide a summary of research works performed around Vortex, in order to meet these requirements.</p></div>
+        </li>
+        <li class="paper">
+          <button type="button"><strong>SIMT Cores near Memory: Caching Outlives Proximity</strong><span>Yuan He, Yusuke Kuragaki and Masaaki Kondo</span></button>
+          <div class="abs" hidden><p>Processing-near-memory (PNM) places compute where memory is manufactured, and because proximity is assumed to have already hidden the latency that a cache exists to hide, the cache then looks to be a good candidate to remove when a core must shrink to fit. We test this assumption through a design-space exploration with Vortex, the open-source RISC-V GPGPU, in which we sweep the data cache in capacity, associativity and presence across seven memory-proximity settings and 24 OpenCL benchmarks, with every configuration placed and routed on ASAP7. Proximity does not make the cache redundant: at the closest placement we model, a cacheless core reaches only 0.966× the performance of a cached core left at conventional distance, and parity would require memory roughly 14× closer than conventional, because a shorter access period makes each memory transaction cheaper while the cache decides how many transactions a warp’s accesses become. The cache should therefore be shrunk rather than removed, and its axes are not interchangeable: reducing capacity from 16 to 4 KB returns 12% of core area for 1.4% of performance, reducing associativity from four-way to direct-mapped returns 41% of core power for 2.2%, whereas removing the data cache costs 5.2% with the instruction cache kept and 18% without it, and compared with a direct-mapped cache it saves no power at all.</p></div>
+        </li>
+      </ul>
+
+      <h3>Poster Session</h3>
+      <p>Posters are presented during the 10:10–10:40 break.</p>
+      <ul class="papers">
+        <li class="paper">
+          <button type="button"><strong>OuterWeaver: Co-Design of Tensor Core and Microarchitectural Adaptations for Unstructured Sparsity in RISC-V GPUs</strong><span>Giorgos Triantafyllou, Panagiotis-Eleftherios Eleftherakis, Alexis Maras, Konstantinos Iliakis, Yanggon Kim, Chengxuan Wang, Nikhil Rout, Blaise Tine and Sotirios Xydis</span></button>
+          <div class="abs" hidden><p>The rapid growth of Deep Neural Networks (DNNs) and Large Language Models (LLMs) has intensified the demand for efficient matrix multiplication, while the increasing sparsity of weights and activations creates additional opportunities for acceleration. Modern GPUs employ specialized units such as Tensor Cores to accelerate General Matrix Multiplication (GEMM). However, their performance is increasingly constrained by operand delivery staging and limited support for sparsity, particularly when both operands exhibit unstructured sparsity. In this work, we present a dual-operand unstructured sparse Tensor Core unit (TCU) that directly accesses operands from shared memory, reducing Register File traffic and improving operand delivery to the compute units. The proposed architecture adopts an outer-product execution model with bitmap-based sparse encoding, eliminating costly nonzero-index intersection and enabling unstructured sparsity to be exploited in both input operands. We further introduce the required ISA extensions and optimized GPU kernels, together with microarchitectural optimizations that improve utilization of the sparse compute datapath. Experimental evaluation demonstrates a mean speedup of 5.6×, a peak speedup of 26×, and up to 1.89× FlashAttention speedup, with 3.5% area and 2.2% power overhead over the dense-TCU baseline.</p></div>
+        </li>
+        <li class="paper">
+          <button type="button"><strong>DTCU: A Cluster-Level Disaggregated Tensor Unit on Vortex</strong><span>Chulhyung Park, Shinnung Jeong and Hyesoon Kim</span></button>
+          <div class="abs" hidden><p>Vortex integrates a tensor compute unit (TCU) within each SIMT core, routing matrix operands and accumulators through the register file and coupling matrix operations to the SIMT datapath. We present DTCU, a cluster-level disaggregated tensor unit for the Vortex RISC-V GPGPU, modeled in SimX. A 64-byte descriptor launches a tiled GEMM, while a tensor memory access (TMA) engine overlaps data movement with computation through double-buffered SRAMs. An XOR swizzle eliminates bank conflicts for column-wise operand reads. On π<sub>0</sub> and ACT GEMMs, DTCU shows 3.3–3.4× speedups with 0.12–0.14× the memory traffic of the in-core TCU at the same MAC array width. Fused kernels range from 2.4× speedup for ReLU to no gain for softmax, limited respectively by the global-memory hand-off and an epilogue-dominated characteristic.</p></div>
+        </li>
+      </ul>
+
+      <dialog id="abs-dialog" class="abs-dialog" aria-labelledby="abs-title">
+        <button type="button" class="abs-close" aria-label="Close">&times;</button>
+        <h4 id="abs-title"></h4>
+        <p class="abs-authors"></p>
+        <div class="abs-body"></div>
+      </dialog>
+      <p>All slides, assignments, and setup instructions are published in the <a href="https://github.com/vortexgpgpu/vortex_tutorials" target="_blank" rel="noopener">tutorial repository</a> ahead of the event.</p>
+      </section>
+
+      <section class="tab-panel" role="tabpanel" id="panel-cfp" aria-labelledby="tab-cfp" hidden>
       <h2>Call for Papers</h2>
       <p>We invite submissions describing new microarchitecture, compiler, runtime, tooling, or application work built on or evaluated with Vortex, as well as experience reports on using Vortex in research and in the classroom.</p>
 
@@ -83,37 +150,7 @@
 
       <h3>Submission link</h3>
       <p><a href="https://easychair.org/conferences/?conf=vortex26" target="_blank" rel="noopener">EasyChair — vortex26</a></p>
-
-      <hr>
-
-      <h2>Program</h2>
-      <p>Sunday, November 1, 2026 · co-located with MICRO-59, Athens, Greece.</p>
-      <div class="table-scroll">
-      <table class="schedule program">
-        <thead><tr><th>Time</th><th>Title</th><th>Presenter</th></tr></thead>
-        <tbody>
-          <tr class="part"><td colspan="3">Part 1: Vortex GPU Tutorial</td></tr>
-          <tr><td>8:00–8:10</td><td>Intro and GPU background</td><td>Hyesoon Kim</td></tr>
-          <tr><td>8:10–9:10</td><td>Vortex Microarchitecture and Software Stack</td><td>Blaise Tine</td></tr>
-          <tr><td>9:10–9:30</td><td>Volt Compiler Pipeline</td><td>Shinnung Jeong</td></tr>
-          <tr><td>9:30–9:50</td><td>Vortex GPU with Agent</td><td>Hyesoon Kim</td></tr>
-          <tr><td>9:50–10:10</td><td>Vortex Tutorial Assignment</td><td>Hyesoon Kim</td></tr>
-          <tr class="break"><td>10:10–10:40</td><td>Q&amp;A and Coffee Break</td><td>Poster Session</td></tr>
-          <tr class="part"><td colspan="3">Part 2: Vortex Workshop</td></tr>
-          <tr><td>10:40–11:00</td><td>TinyGPT on Vortex: End-to-End Transformer Inference on an FPGA-Based Open-Source GPGPU</td><td>Anastasios Papadopoulos, Andreas Chrysafopoulos and Nikolaos Bellas</td></tr>
-          <tr><td>11:00–11:20</td><td>A Safety-Critical Ecosystem Around the Vortex GPU Infrastructure</td><td>Marc Solé i Bonet, Jannis Wolf, Eric Rufart, Josue Pedrajas, Xavier Carrichio Hernández, Pau Adell Raventos, Pau Lopez Castillon, Guillermo Vidal, Matina Maria Trompouki and Leonidas Kosmidis</td></tr>
-          <tr><td>11:20–11:40</td><td>SIMT Cores near Memory: Caching Outlives Proximity</td><td>Yuan He, Yusuke Kuragaki and Masaaki Kondo</td></tr>
-          <tr><td>11:40–12:00</td><td>Review of Tutorial Assignments and Closing Remarks</td><td>Hyesoon Kim</td></tr>
-        </tbody>
-      </table>
-      </div>
-      <h3>Poster Session</h3>
-      <p>Posters are presented during the 10:10–10:40 break.</p>
-      <ul class="posters">
-        <li><strong>OuterWeaver: Co-Design of Tensor Core and Microarchitectural Adaptations for Unstructured Sparsity in RISC-V GPUs</strong><br><span>Giorgos Triantafyllou, Panagiotis-Eleftherios Eleftherakis, Alexis Maras, Konstantinos Iliakis, Yanggon Kim, Chengxuan Wang, Nikhil Rout, Blaise Tine and Sotirios Xydis</span></li>
-        <li><strong>DTCU: A Cluster-Level Disaggregated Tensor Unit on Vortex</strong><br><span>Chulhyung Park, Shinnung Jeong and Hyesoon Kim</span></li>
-      </ul>
-      <p>All slides, assignments, and setup instructions are published in the <a href="https://github.com/vortexgpgpu/vortex_tutorials" target="_blank" rel="noopener">tutorial repository</a> ahead of the event.</p>
+      </section>
 
       <hr>
 
@@ -146,5 +183,38 @@
 <div id="site-footer"></div>
 <script src="assets/js/data.js"></script>
 <script src="assets/js/site.js"></script>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs [role=tab]')); if(!tabs.length) return;
+  function show(t,push){
+    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});
+    if(push) history.replaceState(null,'','#'+t.id.replace('tab-',''));
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t,true);});
+    t.addEventListener('keydown',function(e){var k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+      if(k){var n=tabs[(i+k+tabs.length)%tabs.length];n.focus();show(n,true);}});
+  });
+  var h=document.getElementById('tab-'+location.hash.slice(1)); if(h) show(h,false);
+})();
+</script>
+<script>
+(function(){
+  var d=document.getElementById('abs-dialog'); if(!d||!d.showModal) return;
+  document.querySelectorAll('.papers .paper').forEach(function(li){
+    var abs=li.querySelector('.abs'), btn=li.querySelector('button');
+    if(!abs.textContent.trim()){ li.classList.add('no-abs'); btn.disabled=true; return; }
+    btn.addEventListener('click',function(){
+      d.querySelector('#abs-title').textContent=btn.querySelector('strong').textContent;
+      d.querySelector('.abs-authors').textContent=btn.querySelector('span').textContent;
+      d.querySelector('.abs-body').innerHTML=abs.innerHTML;
+      d.showModal();
+    });
+  });
+  d.querySelector('.abs-close').addEventListener('click',function(){d.close();});
+  d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
+})();
+</script>
 </body>
 </html>

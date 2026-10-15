@@ -423,9 +423,23 @@ section.pull-up{padding-top:52px}
 .schedule.program td:nth-child(3){color:var(--muted);font-size:.86rem;min-width:180px}
 .schedule tr.part td{font-family:inherit;color:var(--ink);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;background:var(--bg);padding-top:14px}
 .schedule tr.break td{background:var(--gold-soft)}
-.posters{padding-left:18px}
-.posters li{margin:10px 0}
-.posters span{color:var(--muted);font-size:.9rem}
+/* Workshop/poster paper lists with abstract popup. */
+.article-body .papers{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px}
+.papers li{margin:0}
+.papers button{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;transition:.2s}
+.papers button:hover,.papers button:focus-visible{border-color:var(--brand)}
+.papers button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.papers strong{display:block;color:var(--ink);line-height:1.45}
+.papers span{display:block;margin-top:4px;color:var(--muted);font-size:.88rem}
+.papers .paper:not(.no-abs) button strong::after{content:" Abstract \2192";font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);margin-left:6px;white-space:nowrap}
+.papers .no-abs button{cursor:default}
+.papers .no-abs button:hover{border-color:var(--line)}
+.abs-dialog{position:fixed;inset:0;margin:auto;height:fit-content;max-width:640px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;background:var(--card);color:var(--ink);box-shadow:var(--shadow-lg)}
+.abs-dialog::backdrop{background:rgba(11,32,56,.45)}
+.abs-dialog h4{margin:0 28px 6px 0;line-height:1.4}
+.abs-dialog .abs-authors{color:var(--muted);font-size:.88rem;margin:0 0 14px}
+.abs-dialog .abs-body{font-size:.95rem;line-height:1.7;max-height:60vh;overflow:auto}
+.abs-close{position:absolute;top:12px;right:14px;background:none;border:0;font-size:1.6rem;line-height:1;color:var(--muted);cursor:pointer}
 /* Superseded date kept visible with a strike, plus an "Extended" flag. */
 .schedule s.was{color:var(--muted);font-weight:400;opacity:.7;margin-left:2px}
 .schedule .upd{
@@ -492,3 +506,11 @@ footer{border-top:1px solid var(--line);background:var(--card);padding:52px 0 40
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Section tabs (Program / Call for Papers). */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 18px}
+.tabs [role=tab]{font:inherit;font-size:.92rem;font-weight:600;color:var(--brand);background:none;border:1px solid transparent;border-radius:8px;padding:9px 16px;cursor:pointer;transition:.15s}
+.tabs [role=tab]:hover{background:var(--bg)}
+.tabs [role=tab][aria-selected=true]{background:var(--brand);color:#fff}
+.tabs [role=tab]:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.article-body .tab-panel > h2:first-child{margin-top:0}
