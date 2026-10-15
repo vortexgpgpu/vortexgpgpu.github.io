@@ -419,6 +419,13 @@ section.pull-up{padding-top:52px}
 .schedule th{font-size:.75rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;background:var(--bg)}
 .schedule td:first-child{font-family:'JetBrains Mono',monospace;color:var(--brand);font-weight:600;white-space:nowrap}
 .schedule tr:last-child td{border-bottom:0}
+/* Program table: part headers, break row, presenter column. */
+.schedule.program td:nth-child(3){color:var(--muted);font-size:.86rem;min-width:180px}
+.schedule tr.part td{font-family:inherit;color:var(--ink);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;background:var(--bg);padding-top:14px}
+.schedule tr.break td{background:var(--gold-soft)}
+.posters{padding-left:18px}
+.posters li{margin:10px 0}
+.posters span{color:var(--muted);font-size:.9rem}
 /* Superseded date kept visible with a strike, plus an "Extended" flag. */
 .schedule s.was{color:var(--muted);font-weight:400;opacity:.7;margin-left:2px}
 .schedule .upd{
